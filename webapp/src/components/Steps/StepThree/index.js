@@ -1,24 +1,18 @@
-import {
-  Container,
-  Grid,
-  Paper,
-  TextField,
-} from "@material-ui/core/";
-import React, { useContext } from "react";
+import { Container, Grid, Paper, TextField } from '@material-ui/core/';
+import React, { useContext } from 'react';
 
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import GlobalState from "../../../contexts/";
-import StorageIcon from "@material-ui/icons/Storage";
-import SubHeader from "../../SubHeader";
-import { makeStyles } from "@material-ui/core/styles";
+import GlobalState from '../../../contexts/';
+import SubHeader from '../../SubHeader';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
+    height: 100,
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
 
@@ -44,8 +38,6 @@ export default function Index() {
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <AddCircleIcon color="primary" fontSize="large" />
-                <StorageIcon color="secondary" fontSize="large" />
                 <span className={classes.span}>Solicitar empréstimo</span>
               </Paper>
             </Grid>
@@ -55,15 +47,11 @@ export default function Index() {
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
-              <span className={classes.span}>
-                <p>Insira os dados do cartão: </p>
-              </span>
+              <span className={classes.span}>Insira os dados do cartão:</span>
             </Paper>
             <br />
             <Paper className={classes.paper}>
-              <span className={classes.span}>
-                {state.clientSearchedData.name}
-              </span>
+              <em>Nome:</em> <span className={classes.span}>{state.clientSearchedData.name}</span>
             </Paper>
             <br />
             <Paper className={classes.paper}>
@@ -110,31 +98,30 @@ export default function Index() {
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
-              <span className={classes.span}>
-                Faça upload dos anexos do cartão:
-              </span>
+              <span className={classes.span}>Faça upload dos anexos do cartão:</span>
             </Paper>
             <br />
 
-            <Paper>
+            <Paper className={classes.paper}>
               <p>Cartão de crédito (frente)</p>
               <a href="#">Adicionar</a>
             </Paper>
             <br />
-            <Paper>
+            <Paper className={classes.paper}>
               <br />
               <p>Cartão de crédito (verso)</p>
               <a href="#">Adicionar</a>
             </Paper>
             <br />
-            <Paper>
+            <Paper className={classes.paper}>
               <p>Selfie com cartão de crédito</p>
               <a href="#">Adicionar</a>
             </Paper>
           </Grid>
         </Grid>
 
-        <br/>
+        <br />
+        <hr />
       </Container>
     </div>
   );

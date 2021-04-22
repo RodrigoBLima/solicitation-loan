@@ -5,10 +5,8 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:prettier/recommended"
+        "plugin:react/recommended"
     ],
-    parser: 'babel-eslint',
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -17,19 +15,8 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        'prettier',
-        'react-hooks'
+        "react"
     ],
     "rules": {
-      'prettier/prettier': 'error',
-      "arrow-body-style": "off",
-      "prefer-arrow-callback": "off",
-      'react/jsx-filename-extension': 0,
-      'import/prefer-default-export': 0,
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'no-console': 0,
-      'func-names': 0,
     }
 };

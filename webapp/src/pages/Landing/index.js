@@ -1,4 +1,4 @@
-import { Button, Container } from '@material-ui/core/';
+import { Button, Container, Grid } from '@material-ui/core/';
 import React, { useContext, useEffect } from 'react';
 
 import GlobalState from '../../contexts/';
@@ -15,7 +15,7 @@ export default function Index() {
   useEffect(() => {
     setState((state) => ({
       ...state,
-      currentStep: 1,
+      currentStep: 6,
       rateTableData: [],
       rateTableSelected: [],
       installmentSelected: [],
@@ -39,43 +39,75 @@ export default function Index() {
     setState((state) => ({ ...state, currentStep: currentStep }));
   }
 
-  function previousButton() {
+  // function previousButton() {
+  //   let currentStep = state.currentStep;
+
+  //   if (currentStep > 5) {
+  //     return null;
+  //   }
+  //   // If the current step is not 1, then render the "previous" button
+  //   if (currentStep !== 1) {
+  //     return (
+  //       <Button type="submit" variant="contained" onClick={_prev}>
+  //         Voltar
+  //       </Button>
+  //     );
+  //   }
+  //   return null;
+  // }
+
+  // function nextButton() {
+  //   let currentStep = state.currentStep;
+  //   let disabled = state.value ? false : true;
+
+  //   // If the current step is not 5, then render the "next" button
+  //   if (currentStep < 5) {
+  //     return (
+  //       <Button type="submit" variant="contained" color="secondary" onClick={_next} disabled={disabled}>
+  //         {currentStep === 2 ? 'Solicitar' : 'Avançar'}
+  //       </Button>
+  //     );
+  //   }
+  //   // ...else render nothing
+  //   return null;
+  // }
+
+  function renderButtons() {
     let currentStep = state.currentStep;
+    let disabled = state.value ? false : true;
 
     if (currentStep > 5) {
       return null;
     }
-    // If the current step is not 1, then render the "previous" button
-    if (currentStep !== 1) {
-      return (
-        <Button type="submit" variant="contained" onClick={_prev}>
-          Voltar
-        </Button>
-      );
-    }
-    return null;
+
+    return (
+      <Container>
+        <Grid container spacing={5}>
+          <Grid xs={6} align-items-xs-center justify-xs-flex-end>
+            {currentStep !== 1 && (
+              <Button type="submit" variant="contained" onClick={_prev}>
+                Voltar
+              </Button>
+            )}
+          </Grid>
+          <Grid xs={6} align-items-xs-center justify-xs-flex-end>
+            {currentStep < 5 && (
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                onClick={_next}
+                disabled={disabled}
+                style={{ float: 'right' }}
+              >
+                {currentStep === 2 ? 'Solicitar' : 'Avançar'}
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+      </Container>
+    );
   }
-
-  function nextButton() {
-    let currentStep = state.currentStep;
-    let disabled = true;
-
-    if (state.value || state.installmentSelected.length === 0) {
-      disabled = false;
-    }
-
-    // If the current step is not 5, then render the "next" button
-    if (currentStep < 5) {
-      return (
-        <Button type="submit" variant="contained" color="secondary" onClick={_next} disabled={disabled}>
-          {currentStep === 2 ? 'Solicitar' : 'Avançar'}
-        </Button>
-      );
-    }
-    // ...else render nothing
-    return null;
-  }
-
   return (
     <div>
       <Container>
@@ -85,11 +117,9 @@ export default function Index() {
         <StepFour />
         <StepFive />
         <StepSix />
-
-        <div>
-          {previousButton()}
-          {nextButton()}
-        </div>
+        <br />
+        <br />
+        <>{renderButtons()}</>
       </Container>
     </div>
   );

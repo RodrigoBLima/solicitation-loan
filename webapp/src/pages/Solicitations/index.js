@@ -1,4 +1,15 @@
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core/';
+import {
+  Box,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@material-ui/core/';
 import React, { useEffect, useState } from 'react';
 
 import api from '../../services/index';
@@ -41,38 +52,41 @@ export default function Index() {
 
   return (
     <Container>
-      {listSolicitations.length > 0 ? (
-        <div className="centered">
-          <TableContainer component={Paper}>
-            <Table aria-label=" table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Parcela</StyledTableCell>
-                  <StyledTableCell align="right">Juros da parcela</StyledTableCell>
-                  <StyledTableCell align="right">Valor da parcela</StyledTableCell>
-                  <StyledTableCell align="right">Valor Total</StyledTableCell>
-                  <StyledTableCell align="right">Comissão parceiro</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {listSolicitations.map((solicitation, index) => (
-                  <StyledTableRow key={index}>
-                    <StyledTableCell component="th" scope="row">
-                      {solicitation.installmentId}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{solicitation.installmentInterest}</StyledTableCell>
-                    <StyledTableCell align="right">{solicitation.installmentValue}</StyledTableCell>
-                    <StyledTableCell align="right">{solicitation.totalLoan}</StyledTableCell>
-                    <StyledTableCell align="right">{solicitation.comission}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      ) : (
-        <h4>Ainda não existem solicitações pendentes</h4>
-      )}
+      <Box display="flex" style={{ marginTop: '14em' }} justifyContent="center" m={1} p={1} bgcolor="background.paper">
+        {listSolicitations.length > 0 ? (
+          <div className="centered">
+            <Typography>Solicitações</Typography>
+            <TableContainer component={Paper}>
+              <Table aria-label=" table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>Parcela</StyledTableCell>
+                    <StyledTableCell align="right">Juros da parcela</StyledTableCell>
+                    <StyledTableCell align="right">Valor da parcela</StyledTableCell>
+                    <StyledTableCell align="right">Valor Total</StyledTableCell>
+                    <StyledTableCell align="right">Comissão parceiro</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {listSolicitations.map((solicitation, index) => (
+                    <StyledTableRow key={index}>
+                      <StyledTableCell component="th" scope="row">
+                        {solicitation.installmentId}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{solicitation.installmentInterest}</StyledTableCell>
+                      <StyledTableCell align="right">{solicitation.installmentValue}</StyledTableCell>
+                      <StyledTableCell align="right">{solicitation.totalLoan}</StyledTableCell>
+                      <StyledTableCell align="right">{solicitation.comission}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        ) : (
+          <Typography>Ainda não existem solicitações pendentes</Typography>
+        )}
+      </Box>
     </Container>
   );
 }

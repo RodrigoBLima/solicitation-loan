@@ -10,17 +10,16 @@ import {
   TableHead,
   TableRow,
   TextField,
-} from "@material-ui/core/";
-import React, { useContext } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+  Typography,
+} from '@material-ui/core/';
+import React, { useContext } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import Footer from "../../Footer";
-import GlobalState from "../../../contexts/";
-import StorageIcon from "@material-ui/icons/Storage";
-import SubHeader from "../../SubHeader";
-import api from "../../../services/index";
-import { useSnackbar } from "notistack";
+import Footer from '../../Footer';
+import GlobalState from '../../../contexts/';
+import SubHeader from '../../SubHeader';
+import api from '../../../services/index';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   span: {
@@ -48,11 +47,14 @@ const StyledTableCell = withStyles((theme) => ({
   body: {
     fontSize: 14,
   },
+  button: {
+    height: '77px !important',
+  },
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
   },
@@ -78,19 +80,14 @@ export default function Index() {
     // }
 
     try {
-      let response = await api.get(
-        `/api/v1/ratetable/installment_value/?installment=${state.value}`
-      );
+      let response = await api.get(`/api/v1/ratetable/installment_value/?installment=${state.value}`);
 
-      let { data, status } = response;
+      let { data } = response;
 
       if (data.length === 0) {
-        enqueueSnackbar(
-          `Infelizmente não temos esse valor disponivel no momento, tente novamente mais tarde`,
-          {
-            variant: "error",
-          }
-        );
+        enqueueSnackbar(`Infelizmente não temos esse valor disponivel no momento, tente novamente mais tarde`, {
+          variant: 'error',
+        });
       }
 
       setState((state) => ({ ...state, rateTableData: data }));
@@ -98,7 +95,7 @@ export default function Index() {
       console.error(error);
 
       enqueueSnackbar(`Erro ao encontrar dados.`, {
-        variant: "error",
+        variant: 'error',
       });
     }
   }
@@ -121,8 +118,6 @@ export default function Index() {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <AddCircleIcon color="primary" fontSize="large" />
-                  <StorageIcon color="secondary" fontSize="large" />
                   <span className={classes.span}>Simulação de taxas</span>
                 </Paper>
               </Grid>
@@ -130,8 +125,11 @@ export default function Index() {
           </SubHeader>
 
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <h4>Valor desejado</h4> <br />
+            <Grid item xs={6}>
+              <Typography variant="h5" component="h2">
+                Valor desejado
+              </Typography>{' '}
+              <br />
               <form action="" onSubmit={handleCalculate}>
                 <TextField
                   type="number"
@@ -139,17 +137,17 @@ export default function Index() {
                   id="outlined-basic"
                   label="Digite o valor"
                   variant="outlined"
-                  onChange={(e) =>
-                    setState((state) => ({ ...state, value: e.target.value }))
-                  }
+                  // eslint-disable-next-line
+                  onChange={(e) => setState((state) => ({ ...state, value: e.target.value }))}
                 />
 
-                <Button type="submit" variant="contained" color="secondary">
+                <Button type="submit" style={{ height: '3.6em' }} variant="contained" color="secondary" size="large">
                   Calcular
                 </Button>
               </form>
             </Grid>
           </Grid>
+
           <br />
           <hr />
           <br />
@@ -165,41 +163,22 @@ export default function Index() {
                     <TableHead>
                       <TableRow>
                         <StyledTableCell>Parcela</StyledTableCell>
-                        <StyledTableCell align="right">
-                          Juros da parcela
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          Valor da parcela
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          Valor Total
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          Comissão parceiro
-                        </StyledTableCell>
+                        <StyledTableCell align="right">Juros da parcela</StyledTableCell>
+                        <StyledTableCell align="right">Valor da parcela</StyledTableCell>
+                        <StyledTableCell align="right">Valor Total</StyledTableCell>
+                        <StyledTableCell align="right">Comissão parceiro</StyledTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {row.installments.map((installment, index) => (
-                        <StyledTableRow
-                          key={index}
-                          onClick={(e) => handleSelected(row, installment)}
-                        >
+                        <StyledTableRow key={index} onClick={() => handleSelected(row, installment)}>
                           <StyledTableCell component="th" scope="row">
                             {installment.installments}
                           </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {installment.installmentInterest}
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {installment.installmentValue}
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {installment.fullValue}
-                          </StyledTableCell>
-                          <StyledTableCell align="right">
-                            {installment.comission}
-                          </StyledTableCell>
+                          <StyledTableCell align="right">{installment.installmentInterest}</StyledTableCell>
+                          <StyledTableCell align="right">{installment.installmentValue}</StyledTableCell>
+                          <StyledTableCell align="right">{installment.fullValue}</StyledTableCell>
+                          <StyledTableCell align="right">{installment.comission}</StyledTableCell>
                         </StyledTableRow>
                       ))}
                     </TableBody>

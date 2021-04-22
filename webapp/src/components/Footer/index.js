@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimpleBottomNavigation() {
   const classes = useStyles();
+  // eslint-disable-next-line
   const [state, setState] = useContext(GlobalState);
 
   return (

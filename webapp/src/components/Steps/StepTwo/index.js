@@ -1,10 +1,10 @@
-import { Button, TextField } from "@material-ui/core/";
-import React, { useContext } from "react";
+import { Box, Button, Container, TextField } from '@material-ui/core/';
+import React, { useContext } from 'react';
 
-import Card from "../../Card";
-import GlobalState from "../../../contexts/";
-import api from "../../../services/index";
-import { useSnackbar } from "notistack";
+import Card from '../../Card';
+import GlobalState from '../../../contexts/';
+import api from '../../../services/index';
+import { useSnackbar } from 'notistack';
 
 export default function Index() {
   const [state, setState] = useContext(GlobalState);
@@ -19,9 +19,7 @@ export default function Index() {
     e.preventDefault();
 
     try {
-      let response = await api.get(
-        `api/v1/client/get_user/?cpf=${state.cpfClientSearched}`
-      );
+      let response = await api.get(`api/v1/client/get_user/?cpf=${state.cpfClientSearched}`);
 
       let { data } = response;
 
@@ -29,12 +27,9 @@ export default function Index() {
       // console.log(data.length);
 
       if (data.length === 0) {
-        enqueueSnackbar(
-          `CPF inexistente na nossa base de dados confira os dados preenchidos.`,
-          {
-            variant: "error",
-          }
-        );
+        enqueueSnackbar(`CPF inexistente na nossa base de dados confira os dados preenchidos.`, {
+          variant: 'error',
+        });
         return;
       }
 
@@ -43,39 +38,45 @@ export default function Index() {
       console.error(error);
 
       enqueueSnackbar(`Erro ao buscar dados do cliente.`, {
-        variant: "error",
+        variant: 'error',
       });
     }
   }
 
   return (
-    <div>
-      <form action="" onSubmit={searcheForClient}>
-        <TextField
-          value={state.cpfClientSearched}
-          id="outlined-basic"
-          label="Busque o cliente"
-          onChange={(e) =>
-            setState((state) => ({
-              ...state,
-              cpfClientSearched: e.target.value,
-            }))
-          }
-        />
+    <Container className={``}>
+      <Box display="flex" style={{marginTop:"14em"}} justifyContent="center" m={1} p={1} bgcolor="background.paper">
+        <form action="" onSubmit={searcheForClient}>
+          <TextField
+            value={state.cpfClientSearched}
+            id="outlined-basic"
+            label="Busque o cliente"
+            variant="outlined"
+            onChange={(e) =>
+              setState((state) => ({
+                ...state,
+                cpfClientSearched: e.target.value,
+              }))
+            }
+          />
 
-        <Button type="submit" variant="contained" color="secondary">
-          Buscar
-        </Button>
-      </form>
-      {state.clientSearchedData.length > 0 && (
-        <Card>
-          <h3>Cliente encontrado:</h3>
+          <Button type="submit" style={{ height: '3.9em' }} variant="contained" color="secondary">
+            Buscar
+          </Button>
+        </form>
+        {state.clientSearchedData.length > 0 && (
+          <Card>
+            <h3>Cliente encontrado:</h3>
 
-          <p>{state.clientSearchedData[0].cpf}</p>
+            <p>{state.clientSearchedData[0].cpf}</p>
 
-          <p>{state.clientSearchedData[0].name} </p>
-        </Card>
-      )}{" "}
-    </div>
+            <p>{state.clientSearchedData[0].name} </p>
+          </Card>
+        )}{' '}
+      </Box>
+      <br />
+      <hr />
+      <br />
+    </Container>
   );
 }

@@ -1,14 +1,35 @@
-import { Button, Grid, Paper } from "@material-ui/core/";
-import React, { useContext } from "react";
+import { Box, Button, Container, Grid, Paper } from '@material-ui/core/';
+import React, { useContext } from 'react';
 
-import GlobalState from "../../../contexts/";
-import StorageIcon from "@material-ui/icons/Storage";
-import SubHeader from "../../SubHeader";
-import { makeStyles } from "@material-ui/core/styles";
+import GlobalState from '../../../contexts/';
+import SubHeader from '../../SubHeader';
+import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({}));
+// eslint-disable-next-line
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    height: 100,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  paperTitle: {
+    height: 60,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  span: {
+    marginLeft: 15,
+    fontSize: 25,
+  },
+}));
 
 export default function Index() {
+  // eslint-disable-next-line
   const [state, setState] = useContext(GlobalState);
   const classes = useStyles();
 
@@ -18,36 +39,41 @@ export default function Index() {
   }
 
   return (
-    <div>
+    <Container>
       <br />
+
       <SubHeader>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <h1 className={classes.span}>
-                <StorageIcon color="secondary" />
-                Solicitar empréstimo
-              </h1>
+            <Paper className={classes.paperTitle}>
+              <span className={classes.span}>Solicitar empréstimo</span>
             </Paper>
           </Grid>
         </Grid>
       </SubHeader>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <div>
-            <Button variant="contained" color="primary">
-              Cartão de crédito
-            </Button>
-          </div>
-          <div>ou</div>
-          <div>
-            <Button variant="contained" color="primary" disabled>
-              Crédito consignado
-            </Button>
-            <span>Em breve</span>
-          </div>
+
+      <Box display="flex" style={{ marginTop: '10em' }} justifyContent="center" m={1} p={1} bgcolor="background.paper">
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <Box display="flex" justifyContent="center" bgcolor="background.paper">
+              <Button variant="contained" color="primary">
+                Cartão de crédito
+              </Button>
+            </Box>
+            <Box display="flex" justifyContent="center" bgcolor="background.paper">
+              <em style={{ align: 'center' }}>ou</em>
+            </Box>
+            <Box display="flex" justifyContent="center" bgcolor="background.paper">
+              <Button variant="contained" color="primary" disabled>
+                Crédito consignado
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
+      </Box>
+      <br />
+      <hr />
+      <br />
+    </Container>
   );
 }

@@ -1,12 +1,9 @@
-import { Button, Container, Grid, Paper } from "@material-ui/core/";
-import React, { useContext } from "react";
+import { Button, Container, Grid, Paper, Typography } from '@material-ui/core/';
+import React, { useContext } from 'react';
 
-import Card from "../../Card";
-import GlobalState from "../../../contexts";
-
-import StorageIcon from "@material-ui/icons/Storage";
-import SubHeader from "../../SubHeader";
-import { makeStyles } from "@material-ui/core/styles";
+import GlobalState from '../../../contexts';
+import SubHeader from '../../SubHeader';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,17 +11,24 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-
+  paperGreen: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    backgroundColor: '#95d3a7',
+    color: theme.palette.text.secondary,
+  },
   span: {
     marginLeft: 15,
     fontSize: 25,
   },
 }));
+
 export default function Index() {
   const classes = useStyles();
+  // eslint-disable-next-line
   const [state, setState] = useContext(GlobalState);
 
   if (state.currentStep !== 6) {
@@ -41,76 +45,75 @@ export default function Index() {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <Paper className={classes.paper}>
-                  <StorageIcon color="secondary" />
-                  <span className={classes.span}>Solicitar empréstimo</span>
+                  <Typography className={classes.span}>Solicitar empréstimo</Typography>
                 </Paper>
               </Grid>
             </Grid>
           </SubHeader>
 
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <h2>Solicitação realizada com sucesso</h2>
-            </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <h5>Resumo da solicitação</h5>
+                <Typography>Resumo da solicitação</Typography>
               </Paper>
+
               <br />
 
-              <Card>
-                <p>{state.clientSearchedData.name}</p>
+              <Paper className={classes.paperGreen}>
+                <Typography>{state.clientSearchedData.name}</Typography>
 
-                <p>{state.cpfClientSearched}</p>
-              </Card>
+                <Typography>{state.cpfClientSearched}</Typography>
+              </Paper>
+
               <br />
-              <Card>
-                <p>{state.numberCardCreditClient}</p>
 
-                <p style={{ color: "#03fc49" }}>
-                  {state.dateValidCardCreditClient}
-                </p>
-              </Card>
+              <Paper className={classes.paperGreen}>
+                <Typography>{state.numberCardCreditClient}</Typography>
+
+                <Typography style={{ color: '#78da93' }}>{state.dateValidCardCreditClient}</Typography>
+              </Paper>
+
               <br />
-              <Card>
-                <p>Valor desejado:</p>
 
-                <p style={{ color: "#03fc49" }}>R$ {state.value}</p>
-              </Card>
+              <Paper className={classes.paperGreen}>
+                <Typography>Valor desejado:</Typography>
+
+                <Typography>R$ {state.value}</Typography>
+              </Paper>
             </Grid>
+
             <Grid item xs={6}>
-              <Card>
-                <h6>Taxa de juros</h6>
-                <p>{state.installmentSelected.installmentInterest}%</p>
-              </Card>
+              <Paper className={classes.paperGreen}>
+                <Typography>Taxa de juros</Typography>
+                <Typography>{state.installmentSelected.installmentInterest}%</Typography>
+              </Paper>
+
               <br />
-              <Card>
-                <p>Parcelas: </p>
+
+              <Paper className={classes.paperGreen}>
+                <Typography>Parcelas: </Typography>
 
                 <p> {state.installmentSelected.installments}</p>
-              </Card>
+              </Paper>
+
               <br />
-              <Card>
-                <p>Valor da parcela: </p>
-                <p>R$: {state.installmentSelected.installmentValue}</p>
-              </Card>
+
+              <Paper className={classes.paperGreen}>
+                <Typography>Valor da parcela: </Typography>
+                <Typography>R$: {state.installmentSelected.installmentValue}</Typography>
+              </Paper>
             </Grid>
           </Grid>
           <br />
           <Grid item xs={12}>
-            <Card>
-              <p>Valor total do empréstimo: </p>
-              <p>R$: {state.installmentSelected.fullValue}</p>
-            </Card>
+            <Paper className={classes.paperGreen}>
+              <Typography>Valor total do empréstimo: </Typography>
+              <Typography>R$: {state.installmentSelected.fullValue}</Typography>
+            </Paper>
           </Grid>
           <br />
           <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              href={`/solicitation/`}
-              fullWidth
-            >
+            <Button variant="contained" color="secondary" href={`/solicitation/`} fullWidth>
               Visualizar solicitações
             </Button>
           </Grid>

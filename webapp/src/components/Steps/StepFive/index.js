@@ -9,17 +9,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-} from "@material-ui/core/";
-import React, { useContext } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+  Typography,
+} from '@material-ui/core/';
+import React, { useContext } from 'react';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import Card from "../../Card";
-import GlobalState from "../../../contexts/";
-import StorageIcon from "@material-ui/icons/Storage";
-import SubHeader from "../../SubHeader";
-import api from "../../../services/index";
-import { useSnackbar } from "notistack";
+import Card from '../../Card';
+import GlobalState from '../../../contexts/';
+import SubHeader from '../../SubHeader';
+import api from '../../../services/index';
+import { useSnackbar } from 'notistack';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   span: {
@@ -38,18 +37,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 700,
   },
 }));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -63,7 +50,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
   },
@@ -82,26 +69,17 @@ export default function Index() {
   function getGetFormData() {
     let form_data = new FormData();
 
-    form_data.append("clientId", state.clientSearchedData[0].id);
-    form_data.append(
-      "installmentInterest",
-      state.installmentSelected.installmentInterest
-    );
-    form_data.append(
-      "installmentInterestValue",
-      state.installmentSelected.installmentValue
-    );
-    form_data.append("comission", state.installmentSelected.comission);
-    form_data.append("comissionValue", state.installmentSelected.comission);
-    form_data.append(
-      "installmentValue",
-      state.installmentSelected.installmentValue
-    );
-    form_data.append("cardNumber", state.cardNumber);
-    form_data.append("desiredValue", state.value);
-    form_data.append("totalLoan", state.installmentSelected.installmentValue);
-    form_data.append("installmentId", state.installmentSelected.installments);
-    form_data.append("rateTableId", state.rateTableData[0].id);
+    form_data.append('clientId', state.clientSearchedData[0].id);
+    form_data.append('installmentInterest', state.installmentSelected.installmentInterest);
+    form_data.append('installmentInterestValue', state.installmentSelected.installmentValue);
+    form_data.append('comission', state.installmentSelected.comission);
+    form_data.append('comissionValue', state.installmentSelected.comission);
+    form_data.append('installmentValue', state.installmentSelected.installmentValue);
+    form_data.append('cardNumber', state.cardNumber);
+    form_data.append('desiredValue', state.value);
+    form_data.append('totalLoan', state.installmentSelected.installmentValue);
+    form_data.append('installmentId', state.installmentSelected.installments);
+    form_data.append('rateTableId', state.rateTableData[0].id);
 
     return form_data;
   }
@@ -117,26 +95,22 @@ export default function Index() {
       console.log(data, status);
 
       if (status !== 201) {
-        enqueueSnackbar(
-          `Infelizmente ocorreu um erro durante o processo, tente novamente mais tarde.`,
-          {
-            variant: "error",
-          }
-        );
+        enqueueSnackbar(`Infelizmente ocorreu um erro durante o processo, tente novamente mais tarde.`, {
+          variant: 'error',
+        });
         return;
       }
 
       enqueueSnackbar(`Nova solicitação criada com sucesso.`, {
-        variant: "success",
+        variant: 'success',
       });
-      
+
       setTimeout(() => {
         setState((state) => ({
           ...state,
           currentStep: 6,
         }));
       }, 4000);
-
     } catch (error) {
       console.error(error);
     }
@@ -167,16 +141,12 @@ export default function Index() {
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <AddCircleIcon color="primary" fontSize="large" />
-                <StorageIcon color="secondary" fontSize="large" />
                 <span className={classes.span}>Solicitar empréstimo</span>
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <span className={classes.span}>
-                  {state.rateTableSelected.name}
-                </span>
+                <span className={classes.span}>{state.rateTableSelected.name}</span>
               </Paper>
             </Grid>
           </Grid>
@@ -187,25 +157,26 @@ export default function Index() {
           <Grid container spacing={3}>
             <Grid item xs={6}>
               <Card>
-                <h6>Valor desejado</h6>
-                <p>R$ {state.value}</p>
+                <Typography>Valor desejado</Typography>
+                <Typography>R$ {state.value}</Typography>
               </Card>
               <br />
               <Card>
-                <p>Parcelas: </p>
+                <Typography>Parcelas: </Typography>
 
-                <p>{state.installmentSelected.installments} </p>
+                <Typography>{state.installmentSelected.installments} </Typography>
               </Card>
               <br />
             </Grid>
             <Grid item xs={6}>
               <Card>
-                <p>Valor total empréstimo: </p>
-                <p>R$: {state.installmentSelected.fullValue}</p>
+                <Typography>Valor total empréstimo: </Typography>
+                <Typography>R$: {state.installmentSelected.fullValue}</Typography>
               </Card>
+              <br />
               <Card>
-                <p>Valor empréstimo: </p>
-                <p>R$: {state.installmentSelected.fullValue}</p>
+                <Typography>Valor empréstimo: </Typography>
+                <Typography>R$: {state.installmentSelected.fullValue}</Typography>
               </Card>
             </Grid>
           </Grid>
@@ -231,12 +202,7 @@ export default function Index() {
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
+              <Button type="submit" variant="contained" color="secondary" fullWidth>
                 Concluir
               </Button>
             </Grid>
@@ -249,48 +215,29 @@ export default function Index() {
           state.rateTableData.map((row) => (
             <>
               <Paper className={classes.paper}>
-                <h1>{row.name}</h1>
+                <Typography>{row.name}</Typography>
               </Paper>
               <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label=" table">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Parcela</StyledTableCell>
-                      <StyledTableCell align="right">
-                        Juros da parcela
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        Valor da parcela
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        Valor Total
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        Comissão parceiro
-                      </StyledTableCell>
+                      <StyledTableCell align="right">Juros da parcela</StyledTableCell>
+                      <StyledTableCell align="right">Valor da parcela</StyledTableCell>
+                      <StyledTableCell align="right">Valor Total</StyledTableCell>
+                      <StyledTableCell align="right">Comissão parceiro</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {row.installments.map((installment, index) => (
-                      <StyledTableRow
-                        key={index}
-                        onClick={(e) => handleSelected(row, installment)}
-                      >
+                      <StyledTableRow key={index} onClick={() => handleSelected(row, installment)}>
                         <StyledTableCell component="th" scope="row">
                           {installment.installments}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {installment.installmentInterest}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {installment.installmentValue}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {installment.fullValue}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {installment.comission}
-                        </StyledTableCell>
+                        <StyledTableCell align="right">{installment.installmentInterest}</StyledTableCell>
+                        <StyledTableCell align="right">{installment.installmentValue}</StyledTableCell>
+                        <StyledTableCell align="right">{installment.fullValue}</StyledTableCell>
+                        <StyledTableCell align="right">{installment.comission}</StyledTableCell>
                       </StyledTableRow>
                     ))}
                   </TableBody>
