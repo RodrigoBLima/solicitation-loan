@@ -26,12 +26,16 @@ export default function Index() {
       // console.log(data, status);
       // console.log(data.length);
 
-      if (status !== 200) {
+      if (status !== 200 || data.length === 0) {
         enqueueSnackbar(`CPF inexistente na nossa base de dados confira os dados preenchidos.`, {
           variant: 'error',
         });
         return;
       }
+
+      enqueueSnackbar(`Cliente encontrado`, {
+        variant: 'success',
+      });
 
       setState((state) => ({ ...state, clientSearchedData: data }));
     } catch (error) {

@@ -48,18 +48,19 @@
   ],
   "client": [
     {
-     
       "name": "Teste Cliente",
       "phone": "71999999999",
       "cpf": "9999999999",
       "cvc": "222",
       "dt_valid": "20/20",
-      "bank":[ {
-        "id": 1,
-        "label": "003 - Banco da Amazonia S.A.",
-        "accountTypeLabel": "Conta Corrente",
-        "accountNumber": "378282246310005"
-      }]
+      "bank": [
+        {
+          "id": 1,
+          "label": "003 - Banco da Amazonia S.A.",
+          "accountTypeLabel": "Conta Corrente",
+          "accountNumber": "378282246310005"
+        }
+      ]
     },
     {
       "id": 1,
@@ -89,4 +90,20 @@
       "rateTableId": 2
     }
   ]
-}
+},
+
+[
+{
+  "name": "João Tavares",
+  "cvc": "514",
+  "dt_valid": "20/25",
+  "phone": "552417845",
+  "cpf": "45871448875",
+  "bank": [
+    {
+      "label": "003 - Banco da Amazonia S.A.",
+      "accountTypeLabel": "Conta Corrente",
+      "accountNumber": "378282246310005"
+    }
+  ]
+}]

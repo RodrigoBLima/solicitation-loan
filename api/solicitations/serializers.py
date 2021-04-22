@@ -42,7 +42,7 @@ class SolicitationSerializer(serializers.ModelSerializer):
                   'totalLoan',
                   'clientId',
                   'rateTableId',
-                  'installmentId', 'client', 'table')
+                  'installmentId', 'client', 'table', 'id')
 
     def create(self, validated_data):
         return Solicitation.objects.create(**validated_data)

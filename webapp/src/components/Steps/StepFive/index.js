@@ -70,14 +70,14 @@ export default function Index() {
     let form_data = new FormData();
 
     form_data.append('clientId', state.clientSearchedData[0].id);
-    form_data.append('installmentInterest', state.installmentSelected.installmentInterest);
-    form_data.append('installmentInterestValue', state.installmentSelected.installmentValue);
+    form_data.append('installmentInterest', parseInt(state.installmentSelected.installmentInterest));
+    form_data.append('installmentInterestValue', parseInt(state.installmentSelected.installmentValue));
     form_data.append('comission', state.installmentSelected.comission);
     form_data.append('comissionValue', state.installmentSelected.comission);
-    form_data.append('installmentValue', state.installmentSelected.installmentValue);
-    form_data.append('cardNumber', state.cardNumber);
-    form_data.append('desiredValue', state.value);
-    form_data.append('totalLoan', state.installmentSelected.installmentValue);
+    form_data.append('installmentValue', parseInt(state.installmentSelected.installmentValue));
+    form_data.append('cardNumber', state.numberCardCreditClient);
+    form_data.append('desiredValue', parseInt(state.value));
+    form_data.append('totalLoan', parseInt(state.installmentSelected.installmentValue));
     form_data.append('installmentId', state.installmentSelected.installments);
     form_data.append('rateTableId', state.rateTableData[0].id);
 

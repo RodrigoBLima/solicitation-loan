@@ -68,9 +68,11 @@ export default function Index() {
               <br />
 
               <Paper className={classes.paperGreen}>
+                <p>Número do cartão</p>
                 <Typography>{state.numberCardCreditClient}</Typography>
 
-                <Typography style={{ color: '#78da93' }}>{state.dateValidCardCreditClient}</Typography>
+                <p>Validade:</p>
+                <Typography >{state.dateValidCardCreditClient}</Typography>
               </Paper>
 
               <br />

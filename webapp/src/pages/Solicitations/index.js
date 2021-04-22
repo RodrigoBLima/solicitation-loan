@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core/';
 import React, { useEffect, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import api from '../../services/index';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -65,6 +67,7 @@ export default function Index() {
                     <StyledTableCell align="right">Valor da parcela</StyledTableCell>
                     <StyledTableCell align="right">Valor Total</StyledTableCell>
                     <StyledTableCell align="right">Comissão parceiro</StyledTableCell>
+                    <StyledTableCell align="right">Ações</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -77,6 +80,11 @@ export default function Index() {
                       <StyledTableCell align="right">{solicitation.installmentValue}</StyledTableCell>
                       <StyledTableCell align="right">{solicitation.totalLoan}</StyledTableCell>
                       <StyledTableCell align="right">{solicitation.comission}</StyledTableCell>
+                      <StyledTableCell align="right">
+                        <Link to={`/solicitation/detail/${solicitation.id}`}>
+                          <VisibilityIcon  color="primary"/>
+                        </Link>{' '}
+                      </StyledTableCell>
                     </StyledTableRow>
                   ))}
                 </TableBody>

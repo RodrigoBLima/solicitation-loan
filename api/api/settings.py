@@ -79,23 +79,17 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'djangoapi',
-#         'USER': 'root',
-#         'PASSWORD': 'rootmysql',
-#         'HOST': 'localhost',
-#         'PORT': '3306'
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangoapi',
+        'USER': 'root',
+        'PASSWORD': 'rootmysql',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
+
 
 
 SECRET_KEY = "i16(t^3+z$a2uzrv68&z=j=oony(+44-mu6dnuv^qdri9&*$6="
