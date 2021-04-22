@@ -9,5 +9,4 @@ class SolicitationFilter(filters.FilterSet):
         model = Solicitation
         fields = {
             'id':  ['exact'],
-            
         }

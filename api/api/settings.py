@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import django_heroku
-import dj_database_url  
+import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -89,18 +89,23 @@ WSGI_APPLICATION = 'api.wsgi.application'
 #         'PORT': '3306'
 #     }
 # }
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
+SECRET_KEY = "i16(t^3+z$a2uzrv68&z=j=oony(+44-mu6dnuv^qdri9&*$6="
+
+DEBUG = True
+
 CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = ['https://stormy-mountain-31568.herokuapp.com/solicitation','127.0.0.1:3000']
+ALLOWED_HOSTS = [
+    'https://stormy-mountain-31568.herokuapp.com/solicitation', '127.0.0.1:3000']
 
 
 REST_FRAMEWORK = {

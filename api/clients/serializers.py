@@ -11,7 +11,7 @@ class BankSerializer(serializers.ModelSerializer):
 
 
 class ClientSerializer(serializers.ModelSerializer):
-    # bank = serializers.SerializerMethodField()
+    bank = serializers.SerializerMethodField()
 
     def get_bank(self, obj):
         data = [
@@ -25,7 +25,8 @@ class ClientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Client
-        fields = ("name",
+        fields = ("id",
+                  "name",
                   "cvc",
                   "dt_valid",
                   "phone",

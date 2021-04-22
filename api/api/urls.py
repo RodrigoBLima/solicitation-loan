@@ -27,7 +27,7 @@ from rest_framework_swagger.views import get_swagger_view
 # VIEWSETS
 from clients.viewsets import BankViewSet, ClientViewSet
 from installments.viewsets import RateTableViewSet, InstallmentsViewSet
-# from solicitations.viewsets import SolicitationViewSet
+from solicitations.viewsets import SolicitationViewSet
 
 
 schema_view = get_swagger_view(title='API')
@@ -37,7 +37,7 @@ router = routers.DefaultRouter()
 router.register(r'client', ClientViewSet)
 router.register(r'ratetable', RateTableViewSet)
 router.register(r'installments', InstallmentsViewSet)
-# router.register(r'solicitation', SolicitationViewSet)
+router.register(r'solicitation', SolicitationViewSet)
 router.register(r'bank', BankViewSet)
 
 urlpatterns = [

@@ -51,7 +51,7 @@ export default function Index() {
             </Paper>
             <br />
             <Paper className={classes.paper}>
-              <em>Nome:</em> <span className={classes.span}>{state.clientSearchedData.name}</span>
+              <p>Nome:</p> <span className={classes.span}>{state.clientSearchedData[0].name}</span>
             </Paper>
             <br />
             <Paper className={classes.paper}>
