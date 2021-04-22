@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,9 +25,10 @@ from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 
 # VIEWSETS
-from client.viewsets import BankViewSet,ClientViewSet
-from ratetable.viewsets import RateTableViewSet,InstallmentsViewSet
-from solicitation.viewsets import SolicitationViewSet
+from clients.viewsets import BankViewSet, ClientViewSet
+from installments.viewsets import RateTableViewSet, InstallmentsViewSet
+# from solicitations.viewsets import SolicitationViewSet
+
 
 schema_view = get_swagger_view(title='API')
 
@@ -35,8 +36,8 @@ schema_view = get_swagger_view(title='API')
 router = routers.DefaultRouter()
 router.register(r'client', ClientViewSet)
 router.register(r'ratetable', RateTableViewSet)
-router.register(r'installments',InstallmentsViewSet)
-router.register(r'solicitation', SolicitationViewSet)
+router.register(r'installments', InstallmentsViewSet)
+# router.register(r'solicitation', SolicitationViewSet)
 router.register(r'bank', BankViewSet)
 
 urlpatterns = [
@@ -46,4 +47,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

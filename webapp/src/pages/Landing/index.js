@@ -15,7 +15,7 @@ export default function Index() {
   useEffect(() => {
     setState((state) => ({
       ...state,
-      currentStep: 6,
+      currentStep: 1,
       rateTableData: [],
       rateTableSelected: [],
       installmentSelected: [],

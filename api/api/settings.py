@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import django_heroku
-import dj_database_url
+import dj_database_url  
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i16(t^3+z$a2uzrv68&z=j=oony(+44-mu6dnuv^qdri9&*$6='
+# SECRET_KEY = 'i16(t^3+z$a2uzrv68&z=j=oony(+44-mu6dnuv^qdri9&*$6='
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,9 +46,9 @@ INSTALLED_APPS = [
     'rest_framework_filters',
     'oauth2_provider',
     'corsheaders',
-    'client',
-    'ratetable',
-    'solicitation',
+    'clients',
+    'installments',
+    'solicitations'
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -85,9 +87,33 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'djangoapi',
+#         'USER': 'root',
+#         'PASSWORD': 'rootmysql',
+#         'HOST': 'localhost',
+#         'PORT': '3306'
+#     }
+# }
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+# }
 
 # DATABASES = {
 #     'default': {
@@ -102,7 +128,7 @@ DATABASES = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ALLOWED_HOSTS = ['https://solicitation-loan.herokuapp.com/','127.0.0.1:3000']
+ALLOWED_HOSTS = ['https://stormy-mountain-31568.herokuapp.com/solicitation','127.0.0.1:3000']
 
 
 REST_FRAMEWORK = {
@@ -147,6 +173,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
