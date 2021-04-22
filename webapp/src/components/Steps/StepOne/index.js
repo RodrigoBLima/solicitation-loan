@@ -72,12 +72,12 @@ export default function Index() {
   async function handleCalculate(e) {
     e.preventDefault();
 
-    // if (state.value < 300 || state.value > 10000) {
-    //   enqueueSnackbar(`Apenas valores entre 300 e 10000`, {
-    //     variant: "error",
-    //   });
-    //   return;
-    // }
+    if (state.value < 300 || state.value > 10000) {
+      enqueueSnackbar(`Apenas valores entre 300 e 10000`, {
+        variant: "error",
+      });
+      return;
+    }
 
     try {
       let response = await api.get(`/api/v1/ratetable/installment_value/?installment=${state.value}`);
